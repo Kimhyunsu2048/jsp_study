@@ -1,0 +1,12 @@
+package models.board;
+
+public class BoardData {
+	private int id; // 게시글 번호
+	private String gid; //그룹 ID
+	private String boardId; // 게시판 ID
+	private int userNo; // 회원번호
+	private String userId; // 회원 ID
+	private String userNm; // 회원명
+	private String poster; // 작성자명
+
+}

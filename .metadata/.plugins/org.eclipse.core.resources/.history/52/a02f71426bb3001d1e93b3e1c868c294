@@ -1,0 +1,17 @@
+package commons;
+
+import java.util.ResourceBundle;
+
+public class PropertyLibrary {
+	
+	private ResourceBundle bundle;
+	
+	public PropertyLibray() {
+		bundle = ResourceBundle.getBundle("applcation");
+	}
+	
+	public String get(String key) {
+		
+	}
+
+}

@@ -1,0 +1,280 @@
+@charset "EUC-KR";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+* { color: #000; box-sizing: border-box; outline: none; font-family: 'Noto Sans KR', sans-serif; }
+body { margin: 0; }
+html { font-size: 13px; }
+ul, ol { list-style: none; padding:0; margin: 0;} 
+dl,dt,dd, p { padding: 0; margin: 0; color: #03e9f4;}
+img { border: 0; }
+a { text-decoration: none; }
+
+/* 초기화 */
+*{
+	padding : 0;
+	margin : 0;
+}
+
+
+/* 
+body{	
+	font-family : 'Gamja Flower', cursive; 
+}
+ */
+
+li{
+	list-style : none;
+}
+a{
+	text-decoration : none;
+}
+button{
+	cursor : pointer;
+}
+
+h1 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: #036bf4;
+  text-align: center;
+}
+
+
+/* 따로 설정 (회원가입, 로그인 둘 다 사용)*/
+.form-group{
+	margin-top : 15px;
+	margin-left : 10px;
+}
+input[type=text]{
+	width : 90%;
+	padding : 8px;
+	border : 1px solid #ddd;
+}
+.btn-group button{
+	float : left;
+	width : 50%;
+	padding : 8px;
+}
+.btn-group::after{
+	content : "";
+	display : block;
+	clear : both;
+}
+
+
+/*로그인*/
+.login-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+  background: #141e30;
+}
+
+.login-box .user-box {
+  position: relative;
+  color: #fff;
+}
+
+.login-box .user-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+
+.login-box form a {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  color: #03e9f4;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  margin-top: 40px;
+  letter-spacing: 4px
+}
+
+.login-box a:hover {
+  background: #03e9f4;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #03e9f4,
+              0 0 25px #03e9f4,
+              0 0 50px #03e9f4,
+              0 0 100px #03e9f4;
+}
+
+.login-box a span {
+  position: absolute;
+  display: block;
+}
+
+.login-box a span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #03e9f4);
+  animation: btn-anim1 1s linear infinite;
+}
+
+@keyframes btn-anim1 {
+  0% {
+    left: -100%;
+  }
+  50%,100% {
+    left: 100%;
+  }
+}
+
+.login-box a span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #03e9f4);
+  animation: btn-anim2 1s linear infinite;
+  animation-delay: .25s
+}
+
+@keyframes btn-anim2 {
+  0% {
+    top: -100%;
+  }
+  50%,100% {
+    top: 100%;
+  }
+}
+
+.login-box a span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #03e9f4);
+  animation: btn-anim3 1s linear infinite;
+  animation-delay: .5s
+}
+
+@keyframes btn-anim3 {
+  0% {
+    right: -100%;
+  }
+  50%,100% {
+    right: 100%;
+  }
+}
+
+.login-box a span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #03e9f4);
+  animation: btn-anim4 1s linear infinite;
+  animation-delay: .75s
+}
+
+@keyframes btn-anim4 {
+  0% {
+    bottom: -100%;
+  }
+  50%,100% {
+    bottom: 100%;
+  }
+}
+
+.keep_check {
+  position: relative;
+  padding-left: 23px;
+}
+
+.keep_check .input_keep {
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  width: 15px;
+  height: 15px;
+}
+
+.keep_check .keep_text {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;
+  color: #fff;
+}
+
+/* 회원가입 */
+.joinbox{
+	position : fixed;
+	top : 0;
+	left : 0;
+	width : 100%;
+	height : 100%;
+	background-color : #ddd;
+	display : none;
+}
+.join-content{
+	background-color : #fff;
+	width : 400px;
+	margin : 100px auto 0;
+	padding : 10px;
+	position : relative;
+}
+.join-content h2{
+	width : 100%;
+	height : 100px;
+	line-height : 100px;
+	text-align : center;
+	font-size : 20px;
+	font-weight : normal;
+}
+
+
+/* 회원가입 */
+.join-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+  background: #141e30;
+}
+
+.join-box .join-user-box{
+  position: relative;
+  color: #fff;
+}
+
+.join-box .join-user-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+
+

@@ -1,0 +1,14 @@
+<%@ page contentType="text/html; charset=utf-8" %>
+<%@ page import="java.util.*" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%
+	String[] fruits = {"apple", "mango", "melon" };
+%>
+<c:set var="fruits" value="apple,mango,melon"/>
+<c:set var="fruits2" value="<%=fruits %>"/>
+
+<c:forEach var="fruit" items="${fn:split(fruits,',')}">
+	${fruit} <br>
+</c:forEach>
+${fn:join(fruits2,",")}

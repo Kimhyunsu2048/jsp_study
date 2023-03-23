@@ -1,0 +1,21 @@
+package models.file;
+
+import javax.servlet.http.HttpServletRequest;
+
+import commons.validator.Validator;
+
+public class FileDeleteService {
+	private FileInfoDao fileInfoDao; 
+	
+	public FileDeleteService(FileInfoDao fileInfoDao) {
+		this.fileInfoDao = fileInfoDao;
+	}
+	
+	public void delete(HttpServletRequest request) {
+		/*
+		 * 요청값 id -> 개별 삭제(우선 먼저 처리)
+		 * 요청갑 gid -> 그룹 ID 삭제
+		 */
+	}
+	
+}

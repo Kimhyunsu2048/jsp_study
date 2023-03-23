@@ -1,0 +1,5 @@
+package controllers.boards;
+
+public class BoardViewController {
+
+}

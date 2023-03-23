@@ -1,0 +1,5 @@
+package commons.exception;
+
+public class BadRequestException {
+
+}

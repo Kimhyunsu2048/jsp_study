@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FileInfoMapper">
+	<resultMap id="FileInfoMap" type="models.file.FileInfo">
+		<result property="id" column="id" />
+		<result property="userNo" column="userNo" />
+		<result property="gid" column="gid" />
+		<result property="fileName" column="fileName" />
+		<result property="fileType" column="fileType" />
+		<result property="done" column="done" />
+		<result property="regDt" column="regDt" />
+	</resultMap>
+	
+	<select id="files" parameterType="models.file.FileInfo" resultMap="FileInfoMap">
+		SELECT * FROM fileInfo 
+				<trim prefix="WHERE" suffixOverrides="AND | OR">
+					<if test="gid != null">
+						 gid=#{gid} AND
+					</if>
+					<if test="done == 1">
+						done=1 AND
+					</if>
+				</trim>
+			ORDER BY regDt;
+	</select>
+	<select id="file" parameterType="models.file.FileInfo" resultMap="FileInfoMap">
+		SELECT * FROM fileInfo WHERE id=#{id};
+	</select>
+	<insert id="insert" parameterType="models.file.FileInfo" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO fileInfo (userNo, gid, fileName, fileType) 
+			VALUES (#{userNo}, #{gid}, #{fileName}, #{fileType});
+	</insert>
+	<delete id="delete" parameterType="models.file.FileInfo">
+		DELETE FROM fileInfo WHERE id=#{id};
+	</delete>
+	
+	<delete id="deletes" parameterType="models.file.FileInfo">
+		DELETE FROM fileInfo WHERE gid=#{gid};
+	</delete>
+	
+	<update id="done" parameterType="models.file.FileInfo">
+		UPDATE fileInfo 
+			SET done = 1 
+			<trim prefix="WHERE" suffixOverrides="AND | OR">
+				<if test="id != null">
+					id=#{id} OR 
+				</if>
+				<if test="gid != null">
+					gid=#{gid} OR
+				</if>
+			</trim>
+	</update>
+	
+	
+</mapper>

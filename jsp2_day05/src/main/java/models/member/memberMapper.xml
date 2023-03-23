@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MemberMapper">
+	<resultMap id="resultMap" type="models.member.Member">
+ 		<result property="userNo" column="userNo" />
+ 		<result property="userId" column="userId" />
+ 		<result property="userPw" column="userPw" />
+ 		<result property="userNm" column="userNm" />
+ 		<result property="mobile" column="mobile" />
+ 		<result property="regDt" column="regDt" />
+ 		<result property="modDt" column="modDt" />
+	</resultMap>
+	
+	<select id="getMembers" resultMap="resultMap" parameterType="models.member.Member">
+		SELECT * FROM member 
+		<trim prefix="WHERE" suffixOverrides="AND | OR">
+			<if test="userNm != null">
+				userNm LIKE #{userNm} AND
+			</if>
+			<if test="userId != null">
+				userId LIKE #{userId} AND
+			</if>
+		</trim>
+	</select> 
+	
+	<select id="get" parameterType="models.member.Member" resultMap="resultMap">
+		SELECT * FROM member WHERE userId= #{userId};
+	</select>
+	
+	<insert id="insert" parameterType="models.member.Member" keyProperty="userNo" useGeneratedKeys="true">
+		INSERT INTO member (userId, userPw, userNm, mobile) 
+			VALUES (#{userId}, #{userPw}, #{userNm}, #{mobile});
+	</insert>
+	
+	<update id="update" parameterType="models.member.Member">
+		UPDATE member 
+			<trim prefix="SET" suffixOverrides=",">
+				<if test="userPw != null">
+					userPw = #{userPw},
+				</if>
+				<if test="userNm != null">
+					userNm = #{userNm},
+				</if>
+				<if test="mobile != null">
+					mobile = #{mobile},
+				</if>
+			</trim>
+			WHERE 
+				userId = #{userId};
+	</update>
+	
+	<delete id="delete" parameterType="models.member.Member">
+		DELETE FROM member WHERE userNo=#{userNo};
+	</delete>
+</mapper>

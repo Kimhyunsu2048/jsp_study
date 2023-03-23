@@ -1,0 +1,95 @@
+package models.file;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
+
+import commons.validator.Validator;
+
+public class FileUploadService {
+	
+	private FileInfoDao fileInfoDao;
+	private Validator<FileInfo> validator;
+	
+	public FileUploadService(FileInfoDao fileInfoDao, Validator<FileInfo> validator) {
+		this.fileInfoDao = fileInfoDao;
+		this.validator = validator;
+	}
+	
+	public List<FileInfo> upload(HttpServletRequest request) {
+		/*
+		 * 1. 요청 데이터(Multipart body) 분리
+		 * 		List<FileItem> ServletFileUpload :: parseRequest
+		 * 			FileItem
+		 * 				.isFormField()
+		 * 2. 업로드한 파일이 있는지 체크
+		 *  		-  파일만 목록으로 추가
+		 *  		- 파일 목록이 없으면 X - FileNotUploadedException
+		 *  
+		 * 3. 업로드한 파일의 최대 용량 (설정) - FileMaxCapcityException
+		 * 4. 파일 형식을 제한한 경우 - 이미지, 파일 종류 체크
+		 * 		- fileType : contentType : image/png, fileTpe 양식 데이터 -> 체크
+		 * 		- NotAllowedFileTypeException
+		 * 
+		 * 5. 파일이 O, DB에 파일 정보 기록
+		 * 6. 파일 등록(id)를 가지고
+		 * 		webapp/uploads/[0-9]/id(파일 등록 아이디) 저장
+		 * 7. 등록 성공한 파일만 업로드 한 파일 목록으로 추가
+		 * 8. 업로드 성공 파일 목록 반환 
+		 * 9. 파일업로드 최종 실패 -> FileUploadException
+		 * 
+		 */
+		
+		String maxTotalFileSize = PropertyLibrary.get("maxTotalFileSize");
+		String maxFileSize = PropertyLibrary.get("maxFileSize");
+		FileItemFactory factory = new DiskFileItemFactory();
+		ServletFileUpload upload = new ServletFileUpload(factory);
+		
+		// 파일 사이즈 제한 S
+		if (maxTotalFileSize != null && !maxTotalFileSize.isBlank()) {
+			upload.setSizeMax(1024*1024*Integer.parseInt(maxFileSize));			
+		}
+		
+		if (maxFileSize != null && !maxFileSize.isBlank()) {
+			upload.setFileSizeMax(1024*1024*Integer.parseInt(maxFileSize));			
+		}
+		// 파일 사이즈 제한 E
+		
+		//1. 요청 데이터(Multipart body) 분리
+		List<FileItem> items = upload.parseRequest(request);
+		
+		// 2. 업로드한 파일이 있는지 체크
+		List<FileItem> uploadedFiles = new ArrayList<>(); // 업로드로 유입된 파일
+		Map<String, String> requestData = new HashMap<>(); // 일반 양식 데이터
+		for (FileItem item : items) {
+			if(!item.isFormField()) { // 일반 양식 데이터
+				String key = item.getFieldName();
+				String value = item.getString("UTF-8");
+				requestData.put(key, value);
+				
+			} else { //파일
+				uploadedFiles.add(item);
+				
+			}
+		}
+		
+		if(uploadedFiles.size() == 0) {
+			throw new FileNotUploadedException();
+		}
+		
+		// 4. 파일 형식을 제한한 경우 S
+		
+		// 4. 파일 형식을 제한한 경우 E
+		
+	}
+	
+
+}

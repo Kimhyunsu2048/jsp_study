@@ -1,0 +1,49 @@
+package controllers.files;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
+import models.file.FileInfo;
+import models.file.FileListService;
+import models.file.FileServiceManager;
+
+@WebServlet("/file/list/*")
+public class FileListController extends HttpServlet {
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		JSONReslult<List<FileInfo>>result = new JSONResult<>();
+		
+		try {
+			FileServiceManager manager = FileServiceManager.getInstance();
+			FileListService service = manager.getFileListService();
+			List<FileInfo> files = service.gets(req);
+			
+			// 성공시 처리
+			result.setSuccess(true);
+			result.setData(files);
+			
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			
+			// 실패시 처리
+			result.setSuccess(false;
+			result.setMessage(e.getMessage());
+			
+		}
+		
+		// JSON으로 출력 
+	}
+	
+
+}
